@@ -16,6 +16,10 @@ if(!isset($_SESSION['username'])){
         font-family: Arial;
 
        }
+       .ds{
+        justify-content: space-between;
+        display: flex;
+       }
    </style>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -24,6 +28,12 @@ if(!isset($_SESSION['username'])){
 </head>
 <body>
 <h1 >Welcome Boss !     <?php echo $_SESSION['username']; ?></h1>
+<div class="ds">
+    <div class="profile">
+    <a href="profile.php"><button class="btn btn-danger">PROFILE</button></a></div>
+    <div class="logout">
+<a href="logout.php"><button class="btn btn-warning">CLICK HERE TO LOG OUT</button></a></div>
+</div>
 <div class="container mt-5">
     <div class="row justify-content-center">
         <div class="col-md-4">

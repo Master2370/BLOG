@@ -38,9 +38,9 @@ $sql="SELECT * FROM POST ";
 $result=$conn->query($sql);
 while ($rows=mysqli_fetch_assoc($result)) {
                     echo "<tr class='bg-success'>";
-	echo "<td>".$rows['ID']."</td>";
+	echo "<td>".$rows['id']."</td>";
 	echo "<td>".$rows['Title']."</td>";
-	echo "<td>".substr($rows['Content'],0,50)."..........."."<a href='blog.php?id=$rows[ID]'"."class='btn btn-success'>"."Read More"."</a>"."</td>";
+	echo "<td>".substr($rows['Content'],0,50)."..........."."<a href='blog.php?id=$rows[id]'"."class='btn btn-success'>"."Read More"."</a>"."</td>";
 	echo "<td><img src='" . $rows['Picture'] . "' alt='Image' height='100px'></td>";
 	echo "<td>".$rows['CreatedAt']."</td>";
 	
