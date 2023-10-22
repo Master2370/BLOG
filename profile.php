@@ -24,7 +24,7 @@ $result=mysqli_query($conn,$sql);
 while($row=mysqli_fetch_array($result)){
     $total= $row["Total"];
 }
-$sql="SELEct P.Title ,P.Content ,P.Picture From Post P JOIN users u On u.id=p.uid Where Username='$name'";
+$sql="SELEct P.Title ,P.Content ,P.Picture From Post P JOIN users u On u.id=p.uid Where Username='$name' LIMIT 5";
 $res=mysqli_query($conn,$sql);
 
 ?>
