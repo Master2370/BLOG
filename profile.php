@@ -4,27 +4,37 @@ if(!isset($_SESSION["username"])){
     header("Location:index.php");
 }
 include"Connection.php";
-$name=$_SESSION["username"];
-$sql="SELECt p.CreatedAt, p.Picture As Recent,P.content As RC,P.Title as Pt,U.username,U.ProfilePicture From Post P Join Users U On u.Id=P.uid Where Username='$name' ORDER BY P.CREATEDAT DESC LIMIT 1";
+$name=$_GET['id'];
+$sln="SELECT uid FROM POST P JOIN users u ON u.id=p.uid WHERE u.username='$name' ";
+$id=mysqli_query($conn,$sln);
+$id1=mysqli_fetch_assoc($id);
+$id2=$id1['uid'];
+$sql="SELECt p.CreatedAt, p.Picture As Recent,P.content As RC,P.Title as Pt From Post P  Where uid='$id2' ORDER BY P.CREATEDAT DESC LIMIT 1";
 $result=mysqli_query($conn,$sql);
 while($row=mysqli_fetch_array($result)){
-    $name=$row['username'];
     $CreatedAt=substr($row['CreatedAt'],0,19);
-$picture=$row['ProfilePicture'];
+
 $recent=$row['Recent'];
 $rc=$row['RC'];
 $Pt=$row['Pt'];
 
 }
+$data="SELECT * from users WHERE id=$id2";
+$dataresult=mysqli_query($conn,$data);
+while ($row=mysqli_fetch_assoc($dataresult)) {
+	// code...
+	$name=$row['Username'];
+	$pic=$row['ProfilePicture'];
+}
 
 
 
-$sql="SELECt Count(P.uid) AS Total From Post P Join USERS u on u.id=p.uid WHERE Username='$name'";
+$sql="SELECt Count(P.uid) AS Total From Post P  WHERE Uid=$id2";
 $result=mysqli_query($conn,$sql);
 while($row=mysqli_fetch_array($result)){
     $total= $row["Total"];
 }
-$sql="SELEct P.Title ,P.Content ,P.Picture From Post P JOIN users u On u.id=p.uid Where Username='$name' LIMIT 5";
+$sql="SELEct P.Title,P.id ,P.Content ,P.Picture From Post P Where uid=$id2 LIMIT 5";
 $res=mysqli_query($conn,$sql);
 
 ?>
@@ -46,7 +56,7 @@ $res=mysqli_query($conn,$sql);
             <div class="col-md-4">
                 <div class="card">
                     <!-- User Profile Image -->
-                    <img src="<?php echo $picture; ?>" class="card-img-top" alt="Profile Picture">
+                    <img src="<?php echo $pic; ?>" class="card-img-top" alt="Profile Picture">
                     <div class="card-body">
                         <!-- User's Name -->
                         <h5 class="card-title"><?php echo $name; ?></h5>
@@ -72,8 +82,11 @@ $res=mysqli_query($conn,$sql);
                 <div class="mt-4">
                     <h5 class="mb-4">Recent Posts</h5>
                     <!-- Loop through and display a list of recent posts -->
-                    <?php while ($row = mysqli_fetch_array($res)) { ?>
+                    <?php while ($row = mysqli_fetch_array($res)) { 
+                       $pid=$row['id'];
+                       ?>
                         <div class="card mb-3">
+                      <a href="update.php?id=<?php echo $pid ?>">UPDATE  <i class="fa-regular fa-pen-to-square"></i></a>
                             <img src="<?php echo $row['Picture']; ?>" class="card-img-top" alt="Post Image">
                             <div class="card-body">
                                 <h5 class="card-title"><?php echo $row['Title']; ?></h5>
@@ -86,10 +99,7 @@ $res=mysqli_query($conn,$sql);
         </div>
         <a href="home.php"><button class="btn btn-info">GO Back</button></a>
     </div>
-    <!-- Add Bootstrap JS and jQuery scripts -->
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="https://kit.fontawesome.com/c2a4c4f905.js" crossorigin="anonymous"></script>
 </body>
 </html>
 
