@@ -65,7 +65,7 @@ $pass=$_POST['password'];
 $cpass=$_POST['confirmPassword'];
 $targetfolder='images/';
 $query="SELEct `username` from users WHere username='$username'";
-$unique=mysqli_query($conn,$query);
+$unique=$conn->query($query);
 if (mysqli_num_rows($unique)>0) {
     echo "<br>";
     echo "<div class='alert alert-danger'>";
@@ -80,7 +80,7 @@ if($pass!=$cpass){
 }else{
     if (move_uploaded_file($_FILES['profilepicture']['tmp_name'],$targetfolder.basename($_FILES['profilepicture']['name']))) {
         $sql="INSERT INTO users (`Username`,`Email`,`Password`,`ProfilePicture`) VALUES('$username','$email','$pass','$profile')";
-        $result=mysqli_query($conn,$sql);
+        $result=$conn->query($sql);
         if ($result) {
   echo '<meta http-equiv="refresh" content="3;url=index.php">';
   echo "<div class='alert alert-success'>";

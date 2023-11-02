@@ -3,15 +3,8 @@
 <?php
 include("connection.php");
 $id=$_GET['id'];
-$sql="SELECT p.*,u.Username from post p JOIN users u on p.uid=u.ID WHERE p.ID=$id;";
-$result=mysqli_query($conn,$sql);	
-while($row=mysqli_fetch_array($result)){
-$title=$row['Title'];
-$content=$row['Content'];
-$picture=$row['Picture'];
-$name=$row['Username'];
-
-}
+$sql=$conn->query("SELECT p.*,u.Username from post p JOIN users u on p.uid=u.ID WHERE p.ID=$id;");
+$result=$sql->fetch_assoc();	
 
 
 
@@ -42,11 +35,11 @@ $name=$row['Username'];
 <body>
 <div class="container">
     <div class="card text-dark bg-info mb-3" style="width: 38rem;">
-        <img src="<?php echo $picture ?>" class="card-img-top" width="300" height="400" alt="Card image">
+        <img src="<?php echo $result['Picture'] ?>" class="card-img-top" width="300" height="400" alt="Card image">
         <div class="card-body">
-            <h5 class="card-title"><?php echo $title;?></h5>
-            <p class="card-text"><?php echo $content;?></p>
-            <p class="card-text"><?php echo $name?></p>
+            <h5 class="card-title"><?php echo $result['Title'];?></h5>
+            <p class="card-text"><?php echo $result['Content'];?></p>
+            <p class="card-text"><?php echo $result['Username'];?></p>
             <a href="dashboard.php" class="btn btn-primary">GoBack</a>
         </div>
     </div>

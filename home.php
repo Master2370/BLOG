@@ -1,8 +1,5 @@
 <?php
-session_start();
-if(!isset($_SESSION['username'])){
-    header('location:index.php');
-}
+require_once("Entry/entry.php");
 $name=$_SESSION['username'];
 ?>
 
@@ -32,7 +29,7 @@ $name=$_SESSION['username'];
 <div class="ds">
     <div class="profile">
         <?php 
-echo "<a href='profile.php?id=" . $name . "'>" . "PROFILE" . "</a>";
+echo "<a href='mypage.php?id=" . $name . "'>" . "PROFILE" . "</a>";
 
         ?>
 </div>

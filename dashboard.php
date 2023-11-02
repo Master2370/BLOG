@@ -30,20 +30,21 @@
 					<th>DESCRIPTION</th>
 					<th>PICTURE</th>
 					<th>DATE/TIME</th>
+					<th>Likes</th>
 
 				</tr>
 				<?php
 include 'connection.php';
 $sql="SELECT * FROM POST ";
 $result=$conn->query($sql);
-while ($rows=mysqli_fetch_assoc($result)) {
+while ($rows=$result->fetch_assoc()) {
                     echo "<tr class='bg-success'>";
 	echo "<td>".$rows['id']."</td>";
 	echo "<td>".$rows['Title']."</td>";
 	echo "<td>".substr($rows['Content'],0,50)."..........."."<a href='blog.php?id=$rows[id]'"."class='btn btn-success'>"."Read More"."</a>"."</td>";
 	echo "<td><img src='" . $rows['Picture'] . "' alt='Image' height='100px'></td>";
 	echo "<td>".$rows['CreatedAt']."</td>";
-	
+	echo "<td> "."<a href='likes.php?id=$rows[id]'"."<i class='fa-solid fa-thumbs-up' style='color: #e85959;'></i>"."a>"."</a>"."</td>";
 	echo "</tr>";
 }
 

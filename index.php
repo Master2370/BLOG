@@ -1,3 +1,12 @@
+<?php 
+session_start();
+if(isset($_SESSION['username'])){
+header('Location:home.php');
+}
+?>
+
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -50,16 +59,15 @@ if (isset($_POST['submit'])) {
 $username=$_POST['username'];
 $pass=$_POST['password'];
 $sql="SElect * FROM `Users` Where username='$username' AND password='$pass'";
-$result=mysqli_query($conn,$sql);
+$result=$conn->query($sql);
 if ($result&&mysqli_num_rows($result)>0) {
-    session_start();
     $row=mysqli_fetch_assoc($result);
     $image=$row['ProfilePicture'];
     $_SESSION['username']=$username;
     $_SESSION['photo']=$image;
     echo '<meta http-equiv="refresh" content="3;url=home.php">';
   echo "<div class='alert alert-success'>";
-                    echo "<h6>Registration successful. Redirecting to login page...</h6>";
+                    echo "<h6>Login successful. Redirecting to Home page...</h6>";
                     echo "</h6>";
 
 
